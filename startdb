@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+[ ! -d "./data/" ] && mkdir data
+
+docker run -d \
+	--name analytics \
+	-p 5432:5432 \
+	-e POSTGRES_PASSWORD=postgrespassword \
+	--user "$(id -u):$(id -g)" -v /etc/passwd:/etc/passwd:ro \
+	-v /home/nicha/analytics/data:/var/lib/postgresql/data \
+	postgres:14
